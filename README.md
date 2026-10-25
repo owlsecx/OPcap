@@ -18,24 +18,18 @@
 
 ## 📌 Overview
 
-Offline PCAP/PCAPNG forensic analyzer — flows, creds, DNS, TLS, threats
+OPcap is an offline, read-only forensic analyzer for pcap and pcapng capture files. Built on the Python standard library, it reconstructs conversations and decodes link, network, transport and application protocols without replaying traffic. Findings are summarised with a weighted risk grade and MITRE ATT&CK references.
 
 ---
 
 ## ✨ Features
 
-- Hand-written pcap reader (LE/BE, usec/nsec magic) and pcapng reader (SHB / IDB / EPB / SPB / OPB)
-- Link layers: Ethernet, 802.1Q/QinQ, Linux SLL/SLL2, BSD loopback/NULL, raw IPv4/IPv6
-- Decoders: IPv4, IPv6 (+ext headers), TCP, UDP, ICMP/ICMPv6, ARP
-- App decoders: DNS, HTTP, DHCP, FTP, Telnet, SMTP, POP3, IMAP, TLS ClientHello (SNI, ALPN, JA3)
-- Conversation table, top talkers, protocol hierarchy, port statistics, DNS log, HTTP log
-- Cleartext credential extraction (FTP / Telnet / HTTP Basic / HTTP forms / POP3 / IMAP / SMTP AUTH)
-- Port-scan & host-sweep detection, beaconing / C2 heuristics, DGA / tunnelling DNS heuristics, ARP spoofing detection
-- HTTP object carving (Content-Length / chunked)
-- Weighted A+…F risk grade, MITRE ATT&CK tags, remediation guidance
-- Export TXT / MD / JSON / CSV / SARIF
-- --demo: synthesise a sample capture & self-test
-- Strictly offline & read-only — never captures traffic
+- Hand-written pcap/pcapng readers with decoders for IPv4/IPv6, TCP/UDP, DNS, HTTP, TLS and more
+- Conversation table, top talkers, protocol hierarchy and port statistics
+- Cleartext credential extraction from FTP, Telnet, HTTP, POP3, IMAP and SMTP
+- Port-scan, host-sweep, beaconing/C2 and DGA/tunnelling heuristics
+- ARP-spoofing detection and HTTP object carving
+- Weighted A+ to F risk grade with severity filtering and multiple report formats
 
 ---
 
@@ -49,7 +43,10 @@ Offline PCAP/PCAPNG forensic analyzer — flows, creds, DNS, TLS, threats
 ## 🚀 Usage
 
 ```bash
-./OPcap
+./OPcap -p capture.pcap --flows --dns --http
+./OPcap -p capture.pcapng --modules all --format json -o report.json
+./OPcap --demo --grade
+./OPcap --help
 ```
 
 ---
